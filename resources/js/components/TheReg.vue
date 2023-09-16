@@ -1,0 +1,37 @@
+<template>
+  <v-col>
+    <v-text-field
+      label="Email"
+      hide-details
+      required
+    ></v-text-field>
+    <v-text-field
+      class="mt-5"
+      label="Nickname"
+      hide-details
+      required
+    ></v-text-field>
+    <v-text-field
+      class="mt-5"
+      label="Password"
+      hide-details
+      required
+      type="password"
+    ></v-text-field>
+    <v-text-field
+      class="mt-5"
+      label="Repeat Password"
+      hide-details
+      required
+      type="password"
+    ></v-text-field>
+    <v-btn 
+      color="#AED2FF" 
+      block 
+      class="mt-5"
+    >
+    
+    Зарегистрироваться
+    </v-btn>
+  </v-col>
+</template>
