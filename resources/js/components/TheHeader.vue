@@ -1,7 +1,10 @@
 <script lang="ts" setup>
+import { useAuthStore } from '@/store/storeAuth';
 const props = defineProps({
   handleModal: Function,
 })
+
+const auth = useAuthStore() 
 </script>
 
 <template>
@@ -11,7 +14,6 @@ const props = defineProps({
       end
       icon="mdi-account-group"
       size="x-large"
-      color="primary"
       ></v-icon>
       <h1 class="ml-2">Social Club</h1>
     </div>
@@ -21,13 +23,13 @@ const props = defineProps({
       <v-btn
         class="ma-2 rounded-lg"
         color="#9400FF"
-        @click="props.handleModal && props.handleModal()"
+        @click="auth.user ? auth.logout() : props.handleModal && props.handleModal()"
       >
         <v-icon
           start
-          icon="mdi-arrow-right"
+          :icon="auth.user ? 'mdi-arrow-left' : 'mdi-arrow-right'"
         ></v-icon>
-          Войти
+          {{auth.user ? 'Выйти' : 'Войти'}}
       </v-btn>
     </div>
   </header>
