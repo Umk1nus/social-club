@@ -1,8 +1,6 @@
 <script lang="ts" setup>
+import router from '@/router';
 import { useAuthStore } from '@/store/storeAuth';
-const props = defineProps({
-  handleModal: Function,
-})
 
 const auth = useAuthStore() 
 </script>
@@ -17,19 +15,31 @@ const auth = useAuthStore()
       ></v-icon>
       <h1 class="ml-2">Social Club</h1>
     </div>
+    
     <div class="header__router">
       <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/about" class="ml-5">About</router-link>
       <v-btn
-        class="ma-2 rounded-lg"
+        class="ml-5 rounded-lg"
         color="#9400FF"
-        @click="auth.user ? auth.logout() : props.handleModal && props.handleModal()"
+        @click="router.push('/personal')"
       >
         <v-icon
           start
-          :icon="auth.user ? 'mdi-arrow-left' : 'mdi-arrow-right'"
+          icon="mdi-account"
         ></v-icon>
-          {{auth.user ? 'Выйти' : 'Войти'}}
+          Кабинет
+      </v-btn>
+      <v-btn
+        class="ma-2 rounded-lg"
+        color="#9400FF"
+        @click="auth.logout()"
+      >
+        <v-icon
+          start
+          icon="mdi-arrow-left"
+        ></v-icon>
+          Выйти
       </v-btn>
     </div>
   </header>

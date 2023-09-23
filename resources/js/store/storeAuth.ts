@@ -1,11 +1,13 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
+import router from '@/router';
 
 type User = {
   id: number,
   name: string;
-  email: string
+  email: string;
+  created_at: string;
 }
 
 type Credentials = {
@@ -32,7 +34,10 @@ export const useAuthStore = defineStore('auth', () => {
   const login = (credentials: Credentials) => {
     axios.get('/sanctum/csrf-cookie').then(_ => {
       axios.post('/login', {email: credentials.email, password: credentials.password}).then(_ =>  {
-        axios.get('/api/user').then(res => user.value = res.data as User)
+        axios.get('/api/user').then(res => {
+           user.value = res.data as User
+           router.push('/personal')
+        })
       })
     })
   }
@@ -45,6 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
         password_confirmation: registration.password_confirmation,
         name: registration.name}).then(_ => {
           getUser()
+          router.push('/personal')
         })
     })
   }

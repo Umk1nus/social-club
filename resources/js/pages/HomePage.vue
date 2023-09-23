@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import {useAuthStore} from '@/store/storeAuth'
-
-const auth = useAuthStore()
 </script>
 
 <template>
-  <v-banner color="red">{{ auth.user }}</v-banner>
+  <v-banner color="red">На данный момент нет постов</v-banner>
 </template>
