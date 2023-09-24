@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import {useAuthStore} from '@/store/storeAuth'
+import {useAuthStore} from '@/store/storeAuth'
+import CreatePost from '@/components/CreatePost.vue';
 
-  const auth = useAuthStore()
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -29,4 +30,7 @@
       </v-list-item>
     </v-list>
   </v-banner>
+  <div>
+    <CreatePost/>
+  </div>
 </template>
