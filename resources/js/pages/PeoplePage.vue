@@ -7,7 +7,8 @@ import axios from 'axios';
 type TMan = {
   id: number,
   name: string,
-  created_at: string
+  created_at: string,
+  is_followed: boolean,
 }
 
 const people:Ref<TMan[]> = ref([])
@@ -24,7 +25,8 @@ onMounted(() => {
       v-for="man in people" 
       :id="man.id"
       :name="man.name"
-      :created-at="man.created_at" 
+      :created-at="man.created_at"
+      :is-followed="man.is_followed"
     />
   </v-col>
 </template>
