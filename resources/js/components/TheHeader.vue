@@ -17,8 +17,9 @@ const auth = useAuthStore()
     </div>
     
     <div class="header__router">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about" class="ml-5">About</router-link>
+      <router-link to="/">Главная</router-link>
+      <router-link to="/people" class="ml-5">Люди</router-link>
+      <router-link to="/about" class="ml-5">О проекте</router-link>
       <v-btn
         class="ml-5 rounded-lg"
         color="#9400FF"

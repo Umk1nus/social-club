@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -11,6 +12,11 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class PostController extends Controller
 {
+    public function index() {
+        $posts = Post::where('user_id', auth()->id())->latest()->get();
+        return PostResource::collection($posts);
+    }
+
     public function store(StoreRequest $request) {
         $data = $request->validated();
 
@@ -30,9 +36,9 @@ class PostController extends Controller
             );
     
             $path = Storage::disk('public')->put('/image', $file);
-            $data['image'] = $path;
+            $data['image'] = url('storage/' . $path);
         }
-        
+
         Post::create($data);
 
         return $data;
