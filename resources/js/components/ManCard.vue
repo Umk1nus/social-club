@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import router from '@/router';
 import axios from 'axios';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
   id: Number,
@@ -14,7 +13,7 @@ const props = defineProps({
 const isFollow = ref(false)
 
 const follow = () => {
-  axios.get(`/api/users/${props.id}/follow`).then(res => isFollow.value = res.data.attached.length > 0 )
+  axios.post(`/api/users/${props.id}/follow`).then(res => isFollow.value = res.data.attached.length > 0 )
 }
 
 onMounted(() => {

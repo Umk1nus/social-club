@@ -43,4 +43,11 @@ class PostController extends Controller
 
         return $data;
     }
+
+    public function follow() {
+        $followedIds = auth()->user()->follow()->get()->pluck('id')->toArray();
+        $posts = Post::whereIn('user_id', $followedIds)->get();
+
+        return PostResource::collection($posts);
+    }
 }
