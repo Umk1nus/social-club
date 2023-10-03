@@ -17,10 +17,12 @@ class PostResource extends JsonResource
         $url = isset($this->image) ? $this->image : null;
 
         return [
+            'id' => $this-> id,
             'title' => $this->title,
             'body' => $this->body,
             'image' => $url,
-            'created_at' => $this->created_at->diffForHumans()
+            'created_at' => $this->created_at->diffForHumans(),
+            'is_liked' => $this->is_liked ?? false,
         ];
     }
 }

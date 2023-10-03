@@ -3,14 +3,14 @@ import axios from 'axios';
 import PostCard from '@/components/PostCard.vue';
 import { onMounted, ref } from 'vue';
 import { Ref } from 'vue';
-import { onBeforeUpdate } from 'vue';
-import { onUpdated } from 'vue';
 
 type Post = {
+  id: number,
   title: string;
   body: string;
   image: string;
   created_at: string;
+  is_liked: boolean;
 }
 
 enum CurrentValue {
@@ -61,6 +61,8 @@ const toggleCurrentPost = (value: CurrentValue) => {
       :body="post.body" 
       :created-at="post.created_at"
       :image="post.image"
+      :id="post.id"
+      :is-liked="post.is_liked"
     />
   </v-col>
 </template>

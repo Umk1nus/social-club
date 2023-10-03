@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Resources\Post\PostResource;
+use App\Models\LikedPost;
 use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -14,6 +15,16 @@ class PostController extends Controller
 {
     public function index() {
         $posts = Post::where('user_id', auth()->id())->latest()->get();
+
+        $likedPost = LikedPost::where('user_id', auth()->id())
+        ->get('post_id')->pluck('post_id')->toArray();
+
+        foreach ($posts as $post) {
+            if(in_array($post->id, $likedPost)) {
+                $post->is_liked = true;
+            }
+        }
+
         return PostResource::collection($posts);
     }
 
@@ -46,8 +57,21 @@ class PostController extends Controller
 
     public function follow() {
         $followedIds = auth()->user()->follow()->get()->pluck('id')->toArray();
-        $posts = Post::whereIn('user_id', $followedIds)->get();
+        $posts = Post::whereIn('user_id', $followedIds)->latest()->get();
 
+        $likedPost = LikedPost::where('user_id', auth()->id())
+        ->get('post_id')->pluck('post_id')->toArray();
+
+        foreach ($posts as $post) {
+            if(in_array($post->id, $likedPost)) {
+                $post->is_liked = true;
+            }
+        }
+        
         return PostResource::collection($posts);
+    }
+
+    public function like(Post $post) {
+        return auth()->user()->likedPost()->toggle($post->id);
     }
 }

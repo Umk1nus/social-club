@@ -26,5 +26,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     
     Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
     Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store']);
+    Route::post('/posts/{post}/like', [\App\Http\Controllers\PostController::class, 'like']);
     Route::get('/posts/follow', [\App\Http\Controllers\PostController::class, 'follow']);
 });
